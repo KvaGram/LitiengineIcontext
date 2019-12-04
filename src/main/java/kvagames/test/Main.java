@@ -9,12 +9,8 @@ import java.awt.image.BufferedImage;
 public class Main extends GameScreen {
     public static void main(String[] args) {
         Main main = new Main();
-
-//        System.out.println("main - before init");
         main.init();
-//        System.out.println("main - before run");
         main.run();
-//        System.out.println("main - end of main");
     }
 
     IconEntryList iconEntries;
@@ -57,6 +53,12 @@ public class Main extends GameScreen {
         }
         
         iconEntries = new IconEntryList(lookupNames, icons);
+
+        //test iconEntries text split
+        String[] testSplit = iconEntries.SplitText(messages[1]);
+        for (int i = 0; i < testSplit.length; i++) {
+            System.out.println(i+": "+testSplit[i]);
+        }
     }
     private void run() {
         Game.start();
@@ -85,13 +87,13 @@ public class Main extends GameScreen {
         //set icon entry list
         TextRenderer2.setIconEntryList(iconEntries);
         g.setColor(Color.red);
-        TextRenderer2.render(g, get(0), iconEntries, 50, 530);
-        TextRenderer2.renderRotated(g, get(1), iconEntries, 60, 550, 6f);
-        TextRenderer2.renderWithLinebreaks(g, get(2), iconEntries, 50, 620, 500);
-        TextRenderer2.render(g, get(3), iconEntries, 50, 740);
-        TextRenderer2.render(g, get(4), iconEntries, 50, 800);
-        TextRenderer2.renderWithOutline(g, get(5), iconEntries, 50, 860, Color.white);
-        TextRenderer2.render(g, get(6), iconEntries, 50, 920);
+        TextRenderer2.render(g, get(0), 50, 530);
+        TextRenderer2.renderRotated(g, get(1), 60, 550, 6f);
+        TextRenderer2.renderWithLinebreaks(g, get(2), 50, 620, 500);
+        TextRenderer2.render(g, get(3), 50, 740);
+        TextRenderer2.render(g, get(4), 50, 800);
+        TextRenderer2.renderWithOutline(g, get(5), 50, 860, Color.white);
+        TextRenderer2.render(g, get(6), 50, 920);
     }
     String get(int i){
         return messages[i % messages.length];
