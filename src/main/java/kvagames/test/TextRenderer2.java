@@ -42,11 +42,11 @@ public final class TextRenderer2 {
      * @param y
      *          the min y coordinate
      */
-    public static void render(final Graphics2D g, final String text, IconEntry[] iconEntries, final double x, final double y) {
+    public static void render(final Graphics2D g, final String text, IconEntryList iconEntries, final double x, final double y) {
         render(g, text, iconEntries, x, y, GuiProperties.getDefaultAppearance().getTextAntialiasing());
     }
 
-    public static void render(final Graphics2D g, final String text, IconEntry[] iconEntries, Point2D location) {
+    public static void render(final Graphics2D g, final String text, IconEntryList iconEntries, Point2D location) {
         render(g, text, iconEntries, location.getX(), location.getY());
     }
 
@@ -65,7 +65,7 @@ public final class TextRenderer2 {
      *          the Anti-Aliasing object (e.g. RenderingHints.VALUE_TEXT_ANTIALIAS_OFF)
      * @see RenderingHints
      */
-    public static void render(final Graphics2D g, final String text, IconEntry[] iconEntries, final double x, final double y, Object antiAliasing) {
+    public static void render(final Graphics2D g, final String text, IconEntryList iconEntries, final double x, final double y, Object antiAliasing) {
         if (text == null || text.isEmpty()) {
             return;
         }
@@ -77,18 +77,18 @@ public final class TextRenderer2 {
         g.setRenderingHints(originalHints);
     }
 
-    public static void render(final Graphics2D g, final String text, IconEntry[] iconEntries, Point2D location, Object antiAliasing) {
+    public static void render(final Graphics2D g, final String text, IconEntryList iconEntries, Point2D location, Object antiAliasing) {
         render(g, text, iconEntries, location.getX(), location.getY(), antiAliasing);
     }
 
-    public static void renderRotated(final Graphics2D g, final String text, IconEntry[] iconEntries, final double x, final double y, final double angle, Object antiAliasing) {
+    public static void renderRotated(final Graphics2D g, final String text, IconEntryList iconEntries, final double x, final double y, final double angle, Object antiAliasing) {
         RenderingHints originalHints = g.getRenderingHints();
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, antiAliasing);
         renderRotated(g, text, iconEntries, x, y, angle);
         g.setRenderingHints(originalHints);
     }
 
-    public static void renderRotated(final Graphics2D g, final String text, IconEntry[] iconEntries, final double x, final double y, final double angle) {
+    public static void renderRotated(final Graphics2D g, final String text, IconEntryList iconEntries, final double x, final double y, final double angle) {
         AffineTransform oldTx = g.getTransform();
         g.rotate(Math.toRadians(angle), x, y);
         render(g, text, iconEntries, x, y);
@@ -96,11 +96,11 @@ public final class TextRenderer2 {
     }
 
 
-    public static void renderRotated(final Graphics2D g, final String text, IconEntry[] iconEntries, Point2D location, final double angle) {
+    public static void renderRotated(final Graphics2D g, final String text, IconEntryList iconEntries, Point2D location, final double angle) {
         renderRotated(g, text, iconEntries, location.getX(), location.getY(), angle);
     }
 
-    public static void renderRotated(final Graphics2D g, final String text, IconEntry[] iconEntries, Point2D location, final double angle, Object antiAliasing) {
+    public static void renderRotated(final Graphics2D g, final String text, IconEntryList iconEntries, Point2D location, final double angle, Object antiAliasing) {
         renderRotated(g, text, iconEntries, location.getX(), location.getY(), angle, antiAliasing);
     }
 
@@ -120,11 +120,11 @@ public final class TextRenderer2 {
      * @param lineWidth
      *          the max line width
      */
-    public static void renderWithLinebreaks(final Graphics2D g, final String text, IconEntry[] iconEntries, final double x, final double y, final double lineWidth) {
+    public static void renderWithLinebreaks(final Graphics2D g, final String text, IconEntryList iconEntries, final double x, final double y, final double lineWidth) {
         renderWithLinebreaks(g, text, iconEntries, x, y, lineWidth, GuiProperties.getDefaultAppearance().getTextAntialiasing());
     }
 
-    public static void renderWithLinebreaks(final Graphics2D g, final String text, IconEntry[] iconEntries, Point2D location, final double lineWidth) {
+    public static void renderWithLinebreaks(final Graphics2D g, final String text, IconEntryList iconEntries, Point2D location, final double lineWidth) {
         renderWithLinebreaks(g, text, iconEntries, location.getX(), location.getY(), lineWidth);
     }
 
@@ -145,7 +145,7 @@ public final class TextRenderer2 {
      *          the Anti-Aliasing object (e.g. RenderingHints.VALUE_TEXT_ANTIALIAS_OFF)
      * @see RenderingHints
      */
-    public static void renderWithLinebreaks(final Graphics2D g, final String text, IconEntry[] iconEntries, final double x, final double y, final double lineWidth, final Object antiAliasing) {
+    public static void renderWithLinebreaks(final Graphics2D g, final String text, IconEntryList iconEntries, final double x, final double y, final double lineWidth, final Object antiAliasing) {
         if (text == null || text.isEmpty()) {
             return;
         }
@@ -169,7 +169,7 @@ public final class TextRenderer2 {
         g.setRenderingHints(originalHints);
     }
 
-    public static void renderWithLinebreaks(final Graphics2D g, final String text, IconEntry[] iconEntries, Point2D location, final double lineWidth, final Object antiAliasing) {
+    public static void renderWithLinebreaks(final Graphics2D g, final String text, IconEntryList iconEntries, Point2D location, final double lineWidth, final Object antiAliasing) {
         renderWithLinebreaks(g, text, iconEntries, location.getX(), location.getY(), lineWidth, antiAliasing);
     }
 
@@ -190,11 +190,11 @@ public final class TextRenderer2 {
      *          the outline color
      * @see RenderingHints
      */
-    public static void renderWithOutline(final Graphics2D g, final String text, IconEntry[] iconEntries, final double x, final double y, final Color outlineColor) {
+    public static void renderWithOutline(final Graphics2D g, final String text, IconEntryList iconEntries, final double x, final double y, final Color outlineColor) {
         renderWithOutline(g, text, iconEntries, x, y, outlineColor, RenderingHints.VALUE_ANTIALIAS_OFF);
     }
 
-    public static void renderWithOutline(final Graphics2D g, final String text, IconEntry[] iconEntries, Point2D location, final Color outlineColor) {
+    public static void renderWithOutline(final Graphics2D g, final String text, IconEntryList iconEntries, Point2D location, final Color outlineColor) {
         renderWithOutline(g, text, iconEntries, location.getX(), location.getY(), outlineColor);
     }
 
@@ -215,7 +215,7 @@ public final class TextRenderer2 {
      *          the Anti-Aliasing object (e.g. RenderingHints.VALUE_TEXT_ANTIALIAS_OFF)
      * @see RenderingHints
      */
-    public static void renderWithOutline(final Graphics2D g, final String text, IconEntry[] iconEntries, final double x, final double y, final Color outlineColor, final Object antiAliasing) {
+    public static void renderWithOutline(final Graphics2D g, final String text, IconEntryList iconEntries, final double x, final double y, final Color outlineColor, final Object antiAliasing) {
         if (text == null || text.isEmpty()) {
             return;
         }
@@ -253,7 +253,7 @@ public final class TextRenderer2 {
         g.setRenderingHints(originalHints);
     }
 
-    public static void renderWithOutline(final Graphics2D g, final String text, IconEntry[] iconEntries, Point2D location, final Color outlineColor, final Object antiAliasing) {
+    public static void renderWithOutline(final Graphics2D g, final String text, IconEntryList iconEntries, Point2D location, final Color outlineColor, final Object antiAliasing) {
         renderWithOutline(g, text, iconEntries, location.getX(), location.getY(), outlineColor, antiAliasing);
     }
 }

@@ -2,12 +2,9 @@ package kvagames.test;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.TextRenderer;
 import de.gurkenlabs.litiengine.gui.screens.GameScreen;
-import de.gurkenlabs.litiengine.resources.Resources;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Main extends GameScreen {
     public static void main(String[] args) {
@@ -20,7 +17,7 @@ public class Main extends GameScreen {
 //        System.out.println("main - end of main");
     }
 
-    IconEntry[] iconEntries;
+    IconEntryList iconEntries;
     String[] messages;
 
     private void init() {
@@ -50,18 +47,21 @@ public class Main extends GameScreen {
         //set up test-icons (colored filled circles)
         Color[] colors = new Color[]{Color.blue, Color.RED, Color.YELLOW, Color.GREEN}; //but there is no white..
         String[] lookupNames = new String[]{"Blue", "RED", "YelLoW", "GREEN"};//All names are corrected to upper case.
-        iconEntries = new IconEntry[lookupNames.length];
+        Image[] icons = new Image[lookupNames.length];
         for (int i = 0; i < lookupNames.length; i++) {
             BufferedImage image = new BufferedImage(32, 32, BufferedImage.TYPE_INT_RGB);
             g = image.createGraphics();
             g.setColor(colors[i]);
             g.fillOval(0, 0, 32, 32);
-            iconEntries[i] = new IconEntry(lookupNames[i],image);
+            icons[i] = image;
         }
+        
+        iconEntries = new IconEntryList(lookupNames, icons);
     }
     private void run() {
         Game.start();
         Game.screens().display(this);
+
     }
 
     @Override
