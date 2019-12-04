@@ -82,6 +82,8 @@ public class Main extends GameScreen {
         TextRenderer.render(g, get(6), 50, 420);
 
         //render new text with icons
+        //set icon entry list
+        TextRenderer2.setIconEntryList(iconEntries);
         g.setColor(Color.red);
         TextRenderer2.render(g, get(0), iconEntries, 50, 530);
         TextRenderer2.renderRotated(g, get(1), iconEntries, 60, 550, 6f);
