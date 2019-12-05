@@ -6,12 +6,7 @@ package kvagames.test;
  */
 
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
+import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.font.LineBreakMeasurer;
@@ -19,6 +14,7 @@ import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 
@@ -74,8 +70,36 @@ public final class TextRenderer2 {
 
         RenderingHints originalHints = g.getRenderingHints();
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, antiAliasing);
+        String[] icontext = iconEntryList.SplitText(text);
+        if(icontext.length == 1)
+            g.drawString(icontext[0], (float) x, (float) y);
+        else {
+            Font font = g.getFont();
+            int offX = 0; int offY = 0;
+            for (int i = 0; i < icontext.length; i++) {
+                if(i % 2 == 0) {
+                    //NOTE: maybe check for line-breaks, and if to advance offset y.
+                    g.drawString(icontext[i], (float)(x+offX), (float)(y+offY));
+                    offX += g.getFontMetrics().stringWidth(icontext[i]);
 
-        g.drawString(text, (float) x, (float) y);
+                } else {
+                    ImageObserver observer = new ImageObserver() {
+                        @Override
+                        public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+                            return false;
+                        }
+                    };
+                    Image img = iconEntryList.getScaledIcon(icontext[i], font.getSize());
+                    if(img == null){
+                        //I don't know.. report error?
+                        continue; //at least skip so the rest of the text can be written
+                    }
+                    g.drawImage(img, (int)(x+offX), (int)(y+offY-font.getSize()), observer);
+                    offX += font.getSize();
+                }
+
+            }
+        }
         g.setRenderingHints(originalHints);
     }
 
