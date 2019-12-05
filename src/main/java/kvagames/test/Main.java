@@ -6,6 +6,7 @@ import de.gurkenlabs.litiengine.gui.screens.GameScreen;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+//This is a test-program for rendering icons with text.
 public class Main extends GameScreen {
     public static void main(String[] args) {
         Main main = new Main();
@@ -20,7 +21,7 @@ public class Main extends GameScreen {
         Game.init();
         Image cursor;
 
-
+        //Note: Not sure how to enable normal cursor, so a virtual cursor is being constructed here.
         cursor = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
         Graphics g = cursor.getGraphics();
         g.setColor(Color.lightGray);
@@ -29,6 +30,7 @@ public class Main extends GameScreen {
         g.drawLine(0, 0, 0, 16);
         Game.window().getRenderComponent().setCursor(cursor);
 
+        //These are the test-texts to render on screen.
         messages = new String[] {
                 "Hello, this is a test, and [BLUE] is a friendly blue dot.",
                 "Hey, I'm a rival test. I despise [BLUE]! Glory to [RED]!",
@@ -51,19 +53,18 @@ public class Main extends GameScreen {
             g.fillOval(0, 0, 32, 32);
             icons[i] = image;
         }
-        
+        //create the lookup lists for icons
         iconEntries = new IconEntryList(lookupNames, icons);
 
-        //test iconEntries text split
-        String[] testSplit = iconEntries.SplitText(messages[1]);
+        //test iconEntries text split (used in debug)
+        /*String[] testSplit = iconEntries.SplitText(messages[1]);
         for (int i = 0; i < testSplit.length; i++) {
             System.out.println(i+": "+testSplit[i]);
-        }
+        }*/
     }
     private void run() {
         Game.start();
         Game.screens().display(this);
-
     }
 
     @Override
@@ -95,6 +96,7 @@ public class Main extends GameScreen {
         TextRenderer2.renderWithOutline(g, get(5), 50, 860, Color.white);
         TextRenderer2.render(g, get(6), 50, 920);
     }
+    //wrapping get-function. For extended tests.
     String get(int i){
         return messages[i % messages.length];
     }

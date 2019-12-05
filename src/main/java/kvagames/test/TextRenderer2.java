@@ -21,6 +21,8 @@ import java.text.AttributedString;
 import de.gurkenlabs.litiengine.gui.GuiProperties;
 
 public final class TextRenderer2 {
+
+    //static property for icons
     private static IconEntryList iconEntryList = new IconEntryList();
 
     private TextRenderer2() {
@@ -70,6 +72,8 @@ public final class TextRenderer2 {
 
         RenderingHints originalHints = g.getRenderingHints();
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, antiAliasing);
+
+        //Start of change by kvagram
         String[] icontext = iconEntryList.SplitText(text);
         if(icontext.length == 1)
             g.drawString(icontext[0], (float) x, (float) y);
@@ -83,6 +87,7 @@ public final class TextRenderer2 {
                     offX += g.getFontMetrics().stringWidth(icontext[i]);
 
                 } else {
+                    //set up observer and icon for render
                     ImageObserver observer = new ImageObserver() {
                         @Override
                         public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
@@ -90,16 +95,23 @@ public final class TextRenderer2 {
                         }
                     };
                     Image img = iconEntryList.getScaledIcon(icontext[i], font.getSize());
+                    //error-catch case where the icon where somewhy not found
                     if(img == null){
-                        //I don't know.. report error?
-                        continue; //at least skip so the rest of the text can be written
+                        //If the icon is missing, just draw the text instead.
+                        g.drawString(icontext[i], (float)(x+offX), (float)(y+offY));
+                        offX += g.getFontMetrics().stringWidth(icontext[i]);
                     }
-                    g.drawImage(img, (int)(x+offX), (int)(y+offY-font.getSize()), observer);
-                    offX += font.getSize();
+                    else {
+                        //Draws the icon. Icon is raised up by font-size to align correctly with the text.
+                        g.drawImage(img, (int)(x+offX), (int)(y+offY-font.getSize()), observer);
+                        offX += font.getSize();
+                    }
+
                 }
 
             }
         }
+        // end of change by kvagram
         g.setRenderingHints(originalHints);
     }
 
